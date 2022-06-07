@@ -9,9 +9,9 @@ namespace Bank.Core.Interfaces
 {
     public interface IDispositionService
     {
-        DispositionDTO Get(int id);
-        DispositionDTO Create(DispositionDTO customer);
-        DispositionDTO Update(DispositionDTO customer);
-        bool Delete(DispositionDTO customer);
+        Task<DispositionDTO> Get(int id);
+        Task<DispositionDTO> Create(DispositionDTO customer);
+        Task<DispositionDTO> Update(DispositionDTO customer);
+        Task<bool> Delete(DispositionDTO customer);
     }
 }

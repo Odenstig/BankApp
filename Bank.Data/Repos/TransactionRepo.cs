@@ -1,6 +1,7 @@
 ﻿using Bank.Data.Interfaces;
 using Bank.Data.Models;
 using Bank.Domain.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,48 +19,36 @@ namespace Bank.Data.Repos
             _db = db;
         }
 
-        public bool Delete(Transaction transaction)
+        public async Task<bool> Delete(Transaction transaction)
         {
-            try
-            {
-                _db.Transactions.Remove(transaction);
-                _db.SaveChanges();
+            
+            _db.Transactions.Remove(transaction);
+            await _db.SaveChangesAsync();
 
-                return true;
-            }
-            catch { return false; }
+            return true;
         }
 
-        public Transaction Get(int id)
+        public async Task<Transaction> Get(int id)
         {
-            return _db.Transactions.SingleOrDefault(t => t.TransactionId == id);
+            return await _db.Transactions.FindAsync(id);
         }
 
-        public List<Transaction> GetList(int id)
+        public async Task<List<Transaction>> GetAllSpecific(int id)
         {
-            List<Transaction> list = new();
-
-            var disp = _db.Dispositions.SingleOrDefault(d => d.CustomerId == id);
-            var acc = _db.Accounts.SingleOrDefault(a => a.AccountId == disp.AccountId);
-
-            foreach(var transaction in _db.Transactions.Where(t => t.AccountId == acc.AccountId))
-            {
-                list.Add(transaction);
-            }
+            var list = await _db.Transactions
+                    .Where(a => a.AccountId == id)
+                    .ToListAsync();
 
             return list;
         }
 
-        public Transaction Update(Transaction transaction)
+        public async Task<Transaction> Update(Transaction transaction)
         {
-            try
-            {
-                _db.Transactions.Update(transaction);
-                _db.SaveChanges();
+            
+            _db.Transactions.Update(transaction);
+            await _db.SaveChangesAsync();
 
-                return transaction;
-            }
-            catch { return null; }
+            return transaction;
         }
     }
 }

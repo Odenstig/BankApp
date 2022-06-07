@@ -9,7 +9,10 @@ namespace Bank.Data.Interfaces
 {
     public interface IAccountTypeRepo
     {
-        List<AccountType> GetAll();
-        AccountType Create(AccountType accountType);
+        Task<List<AccountType>> GetAll();
+        Task<AccountType> Get(int id);
+        Task<AccountType> Create(AccountType accountType);
+        Task<AccountType> Update(AccountType accountType);
+        Task<bool> Delete(AccountType accountType);
     }
 }

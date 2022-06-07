@@ -22,7 +22,7 @@ namespace Bank.Core.Services
             _mapper = mapper;
         }
 
-        public DispositionDTO Create(DispositionDTO disp)
+        public async Task<DispositionDTO> Create(DispositionDTO disp)
         {
             try
             {
@@ -34,7 +34,7 @@ namespace Bank.Core.Services
                 };
 
                 var mapped = _mapper.Map<DispositionDTO, Disposition>(dto);
-                var save = _repo.Create(mapped);
+                var save = await _repo.Create(mapped);
 
                 var map = _mapper.Map<DispositionDTO>(save);
 
@@ -46,19 +46,49 @@ namespace Bank.Core.Services
             }
         }
 
-        public bool Delete(DispositionDTO customer)
+        public async Task<bool> Delete(DispositionDTO dispositionDTO)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var mapped = _mapper.Map<DispositionDTO, Disposition>(dispositionDTO);
+                await _repo.Delete(mapped);
+
+                return true;
+            }
+            catch
+            {
+                throw new Exception("Failed to delete disposition");
+            }
         }
 
-        public DispositionDTO Get(int id)
+        public async Task<DispositionDTO> Get(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var acc = await _repo.Get(id);
+
+                return _mapper.Map<DispositionDTO>(acc);
+            }
+            catch
+            {
+                throw new Exception("Failed to get account");
+            }
         }
 
-        public DispositionDTO Update(DispositionDTO customer)
+        public async Task<DispositionDTO> Update(DispositionDTO dispositionDTO)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var acc = _mapper.Map<DispositionDTO, Disposition>(dispositionDTO);
+
+                var res = await _repo.Update(acc);
+
+                return _mapper.Map<DispositionDTO>(res);
+            }
+            catch
+            {
+                throw new Exception("Failed to update account");
+            }
         }
     }
 }

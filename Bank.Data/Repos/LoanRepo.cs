@@ -1,6 +1,7 @@
 ﻿using Bank.Data.Interfaces;
 using Bank.Data.Models;
 using Bank.Domain.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,45 +19,45 @@ namespace Bank.Data.Repos
             _db = db;
         }
 
-        public Loan Create(Loan loan)
+        public async Task<Loan> Create(Loan loan)
         {
-            try
-            {
-                _db.Loans.Add(loan);
-                _db.SaveChanges();
+            
+            await _db.Loans.AddAsync(loan);
+            await _db.SaveChangesAsync();
 
-                return loan;
-            }
-            catch { return null; }
+            return loan;           
         }
 
-        public bool Delete(Loan loan)
+        public async Task<bool> Delete(Loan loan)
         {
-            try
-            {
-                _db.Loans.Remove(loan);
-                _db.SaveChanges();
 
-                return true;
-            }
-            catch { return false; }
+            _db.Loans.Remove(loan);
+            await _db.SaveChangesAsync();
+
+            return true;
         }
 
-        public Loan Get(int id)
+        public async Task<Loan> Get(int id)
         {
-            return _db.Loans.SingleOrDefault(l => l.LoanId == id);
+            return await _db.Loans.FindAsync(id);
         }
 
-        public Loan Update(Loan loan)
+        public Task<List<Loan>> GetAllSpecific(int id)
         {
-            try
-            {
-                _db.Update(loan);
-                _db.SaveChanges();
+            var list = _db.Loans
+                    .Where(l => l.AccountId == id)
+                    .ToListAsync();
 
-                return loan;
-            }
-            catch { return null; }
+            return list;
+        }
+
+        public async Task<Loan> Update(Loan loan)
+        {
+            
+            _db.Update(loan);
+            await _db.SaveChangesAsync();
+
+            return loan;
         }
     }
 }

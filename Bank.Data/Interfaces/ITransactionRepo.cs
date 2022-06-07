@@ -9,9 +9,9 @@ namespace Bank.Data.Interfaces
 {
     public interface ITransactionRepo
     {
-        List<Transaction> GetList(int id);
-        Transaction Get(int id);
-        bool Delete(Transaction transaction);
-        Transaction Update(Transaction transaction);
+        Task<List<Transaction>> GetAllSpecific(int id);
+        Task<Transaction> Get(int id);
+        Task<bool> Delete(Transaction transaction);
+        Task<Transaction> Update(Transaction transaction);
     }
 }

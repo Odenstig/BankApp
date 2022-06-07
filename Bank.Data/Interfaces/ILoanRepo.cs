@@ -9,10 +9,11 @@ namespace Bank.Data.Interfaces
 {
     public interface ILoanRepo
     {
-        Loan Create(Loan loan);
-        Loan Update(Loan loan);
-        Loan Get(int id);
-        bool Delete(Loan loan);
+        Task<Loan> Create(Loan loan);
+        Task<Loan> Update(Loan loan);
+        Task<Loan> Get(int id);
+        Task<List<Loan>> GetAllSpecific(int id);
+        Task<bool> Delete(Loan loan);
         
     }
 }

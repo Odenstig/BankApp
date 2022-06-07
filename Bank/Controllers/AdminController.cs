@@ -23,7 +23,7 @@ namespace Bank.Api.Controllers
 
         [HttpPost]
         [Route("add-account")]
-        public async Task<IActionResult> Register([FromBody] AccountDTO accountDTO)
+        public async Task<IActionResult> AddAccount([FromBody] AccountDTO accountDTO)
         {
 
 

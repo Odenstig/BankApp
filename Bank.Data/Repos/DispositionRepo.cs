@@ -18,43 +18,36 @@ namespace Bank.Data.Repos
             _db = db;
         }
 
-        public Disposition Create(Disposition disposition)
+        public async Task<Disposition> Create(Disposition disposition)
         {
             
-            _db.Dispositions.Add(disposition);
-            _db.SaveChanges();
+            await _db.Dispositions.AddAsync(disposition);
+            await _db.SaveChangesAsync();
 
             return disposition;
+        }
+
+        public async Task<bool> Delete(Disposition disposition)
+        {
             
+            _db.Dispositions.Remove(disposition);
+            await _db.SaveChangesAsync();
+
+            return true;
         }
 
-        public bool Delete(Disposition disposition)
+        public async Task<Disposition> Get(int id)
         {
-            try
-            {
-                _db.Dispositions.Remove(disposition);
-                _db.SaveChanges();
-
-                return true;
-            }
-            catch { return false; }
+            return await _db.Dispositions.FindAsync(id);
         }
 
-        public Disposition Get(int id)
+        public async Task<Disposition> Update(Disposition disposition)
         {
-            return _db.Dispositions.SingleOrDefault(c => c.DispositionId == id);
-        }
+            
+            _db.Dispositions.Update(disposition);
+            await _db.SaveChangesAsync();
 
-        public Disposition Update(Disposition disposition)
-        {
-            try
-            {
-                _db.Dispositions.Update(disposition);
-                _db.SaveChanges();
-
-                return disposition;
-            }
-            catch { return null; }
+            return disposition;
         }
     }
 }

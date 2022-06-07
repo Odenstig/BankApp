@@ -1,6 +1,7 @@
 ﻿using Bank.Data.Interfaces;
 using Bank.Data.Models;
 using Bank.Domain.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,41 +19,43 @@ namespace Bank.Data.Repos
             _db = db;
         }
 
-        public Card Create(Card card)
+        public async Task<Card> Create(Card card)
         {
-            try
-            {
-                _db.Cards.Add(card);
-                _db.SaveChanges();
-
-                return card;
-            }
-            catch { return null; }
-        }
-
-        public bool Delete(Card card)
-        {
-            try
-            {
-                _db.Cards.Remove(card);
-                _db.SaveChanges();
-                return true;
-            }
-            catch { return false; }
-        }
-
-        public Card Get(int id)
-        {
-            var disp = _db.Dispositions.SingleOrDefault(c => c.CustomerId == id);
-            var card = _db.Cards.SingleOrDefault(c => c.DispositionId == disp.DispositionId);
+            
+            await _db.Cards.AddAsync(card);
+            await _db.SaveChangesAsync();
 
             return card;
         }
 
-        public Card Update(Card card)
+        public async Task<bool> Delete(Card card)
+        {
+            
+            _db.Cards.Remove(card);
+            await _db.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<Card> Get(int id)
+        {
+            var card = await _db.Cards.FindAsync(id);
+
+            return card;
+        }
+
+        public async Task<List<Card>> GetAllSpecific(int id)
+        {
+            var list = await _db.Cards
+                    .Where(c => c.DispositionId == id)
+                    .ToListAsync();
+
+            return list;
+        }
+
+        public async Task<Card> Update(Card card)
         {
             _db.Cards.Update(card);
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
 
             return card;
         }

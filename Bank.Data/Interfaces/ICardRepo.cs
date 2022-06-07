@@ -9,9 +9,10 @@ namespace Bank.Data.Interfaces
 {
     public interface ICardRepo
     {
-        Card Get(int id);
-        Card Create(Card card);
-        Card Update(Card card);
-        bool Delete(Card card);
+        Task<Card> Get(int id);
+        Task<List<Card>> GetAllSpecific(int id);
+        Task<Card> Create(Card card);
+        Task<Card> Update(Card card);
+        Task<bool> Delete(Card card);
     }
 }

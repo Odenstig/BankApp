@@ -9,10 +9,10 @@ namespace Bank.Data.Interfaces
 {
     public interface IDispositionRepo
     {
-        Disposition Get(int id);
-        Disposition Create(Disposition disposition);
-        Disposition Update(Disposition disposition);
-        bool Delete(Disposition disposition);
+        Task<Disposition> Get(int id);
+        Task<Disposition> Create(Disposition disposition);
+        Task<Disposition> Update(Disposition disposition);
+        Task<bool> Delete(Disposition disposition);
 
     }
 }
