@@ -25,11 +25,9 @@ namespace Bank.Api.Controllers
         [Route("add-account")]
         public async Task<IActionResult> Register([FromBody] AccountDTO accountDTO)
         {
-            AccountDTO acc = new()
-            {
-            };
 
-            var result = await _accountSvc.Create(acc);
+
+            var result = await _accountSvc.Create(accountDTO);
 
             return Ok();
         }

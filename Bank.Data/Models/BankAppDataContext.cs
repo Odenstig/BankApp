@@ -49,6 +49,8 @@ namespace Bank.Data.Models
                     .HasMaxLength(500)
                     .IsUnicode(false);
 
+                entity.Property(e => e.Interest).HasColumnType("decimal(18, 2)");
+
                 entity.Property(e => e.TypeName)
                     .HasMaxLength(50)
                     .IsUnicode(false);

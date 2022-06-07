@@ -13,6 +13,7 @@ namespace Bank.Core.Services
 {
     public class AccountService : IAccountService
     {
+        
         private readonly IAccountRepo _repo;
         private readonly IMapper _mapper;
 
@@ -26,12 +27,20 @@ namespace Bank.Core.Services
         {
             try
             {
-            var mapped = _mapper.Map<AccountDTO, Account>(accountDTO);
-            var save = await _repo.Create(mapped);
+                AccountDTO acc = new()
+                {
+                    AccountTypesId = accountDTO.AccountTypesId,
+                    Created = accountDTO.Created,
+                    Balance = accountDTO.Balance,
+                    Frequency = accountDTO.Frequency
+                };
                 
-            var map = _mapper.Map<AccountDTO>(save);
+                var mapped = _mapper.Map<AccountDTO, Account>(acc);
+                var save = await _repo.Create(mapped);
+                
+                var map = _mapper.Map<AccountDTO>(save);
 
-            return map;
+                return map;
 
             }
             catch
@@ -39,6 +48,7 @@ namespace Bank.Core.Services
                 throw new Exception("Failed to create account");
             }
         }
+        
         public async Task<bool> Delete(AccountDTO accountDTO)
         {
             try
