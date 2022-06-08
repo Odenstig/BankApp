@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Bank.Core.Interfaces;
+using Bank.Data.Interfaces;
 using Bank.Data.Repos;
 using Bank.Domain.DTOs;
 using Bank.Domain.Models;
@@ -13,10 +14,10 @@ namespace Bank.Core.Services
 {
     public class DispositionService : IDispositionService
     {
-        private readonly DispositionRepo _repo;
+        private readonly IDispositionRepo _repo;
         private readonly IMapper _mapper;
 
-        public DispositionService(DispositionRepo repo, IMapper mapper)
+        public DispositionService(IDispositionRepo repo, IMapper mapper)
         {
             _repo = repo;
             _mapper = mapper;

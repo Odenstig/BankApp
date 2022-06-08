@@ -57,8 +57,6 @@ builder.Services.AddSwaggerGen(c =>
   });
 });
 
-//builder.Services.AddTransient<IDispositionRepo, DispositionRepo>();
-//builder.Services.AddTransient<IDispositionService, DispositionService>();
 
 builder.Services.AddTransient<IAccountRepo, AccountRepo>();
 builder.Services.AddTransient<IAccountService, AccountService>();
@@ -66,6 +64,8 @@ builder.Services.AddTransient<IAccountService, AccountService>();
 builder.Services.AddTransient<ICustomerRepo, CustomerRepo>();
 builder.Services.AddTransient<ICustomerService, CustomerService>();
 
+builder.Services.AddTransient<IDispositionRepo, DispositionRepo>();
+builder.Services.AddTransient<IDispositionService, DispositionService>();
 
 
 //builder.Services.AddTransient<IAccountTypeRepo, AccountTypeRepo>();

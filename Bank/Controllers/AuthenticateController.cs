@@ -80,6 +80,10 @@ namespace Bank.Api.Controllers
             };
 
             var result = await _userManager.CreateAsync(user, model.Password);
+
+            if (await _roleManager.RoleExistsAsync(UserRoles.User))
+                await _userManager.AddToRoleAsync(user, UserRoles.User);
+
             if (!result.Succeeded || res == null)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
 
