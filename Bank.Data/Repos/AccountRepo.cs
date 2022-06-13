@@ -1,12 +1,6 @@
 ﻿using Bank.Data.Interfaces;
 using Bank.Data.Models;
 using Bank.Domain.Models;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bank.Data.Repos
 {
@@ -38,15 +32,6 @@ namespace Bank.Data.Repos
         {
             var acc = await _db.Accounts.FindAsync(id);
             return acc;
-        }
-
-        public async Task<List<Account>> GetAllSpecific(int id)
-        {
-            var list = await _db.Accounts
-                    .Where(a => a.AccountId == id)
-                    .ToListAsync();
-
-            return list;
         }
 
         public async Task<Account> Update(Account account)

@@ -1,11 +1,6 @@
 ﻿using Bank.Data.Interfaces;
 using Bank.Data.Models;
 using Bank.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
 namespace Bank.Data.Repos
@@ -21,7 +16,7 @@ namespace Bank.Data.Repos
 
         public async Task<AccountType> Create(AccountType accountType)
         {
-            
+
             await _db.AccountTypes.AddAsync(accountType);
             await _db.SaveChangesAsync();
 

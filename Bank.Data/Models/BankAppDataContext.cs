@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Bank.Domain.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
-using Bank.Domain.Models;
 
 namespace Bank.Data.Models
 {

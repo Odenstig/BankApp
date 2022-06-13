@@ -1,14 +1,8 @@
 ﻿using AutoMapper;
 using Bank.Core.Interfaces;
 using Bank.Data.Interfaces;
-using Bank.Data.Repos;
 using Bank.Domain.DTOs;
 using Bank.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bank.Core.Services
 {
@@ -25,6 +19,7 @@ namespace Bank.Core.Services
 
         public async Task<DispositionDTO> Create(DispositionDTO disp)
         {
+
             try
             {
                 DispositionDTO dto = new()
@@ -72,7 +67,21 @@ namespace Bank.Core.Services
             }
             catch
             {
-                throw new Exception("Failed to get account");
+                throw new Exception("Failed to get disposition");
+            }
+        }
+
+        public async Task<List<DispositionDTO>> GetAllSpecific(int id)
+        {
+            try
+            {
+                var list = await _repo.GetAllSpecific(id);
+
+                return _mapper.Map<List<DispositionDTO>>(list);
+            }
+            catch
+            {
+                throw new Exception("Failed to get dispositions");
             }
         }
 

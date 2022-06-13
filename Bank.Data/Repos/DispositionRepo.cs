@@ -1,11 +1,7 @@
 ﻿using Bank.Data.Interfaces;
 using Bank.Data.Models;
 using Bank.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Bank.Data.Repos
 {
@@ -20,7 +16,7 @@ namespace Bank.Data.Repos
 
         public async Task<Disposition> Create(Disposition disposition)
         {
-            
+
             await _db.Dispositions.AddAsync(disposition);
             await _db.SaveChangesAsync();
 
@@ -29,7 +25,7 @@ namespace Bank.Data.Repos
 
         public async Task<bool> Delete(Disposition disposition)
         {
-            
+
             _db.Dispositions.Remove(disposition);
             await _db.SaveChangesAsync();
 
@@ -41,9 +37,25 @@ namespace Bank.Data.Repos
             return await _db.Dispositions.FindAsync(id);
         }
 
+        public async Task<List<Disposition>> GetAll()
+        {
+            List<Disposition> list = await _db.Dispositions.ToListAsync();
+
+            return list;
+        }
+
+        public async Task<List<Disposition>> GetAllSpecific(int id)
+        {
+            var list = await _db.Dispositions
+                    .Where(d => d.AccountId == id)
+                    .ToListAsync();
+
+            return list;
+        }
+
         public async Task<Disposition> Update(Disposition disposition)
         {
-            
+
             _db.Dispositions.Update(disposition);
             await _db.SaveChangesAsync();
 

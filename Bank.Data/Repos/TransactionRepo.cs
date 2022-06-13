@@ -2,11 +2,6 @@
 using Bank.Data.Models;
 using Bank.Domain.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bank.Data.Repos
 {
@@ -19,9 +14,17 @@ namespace Bank.Data.Repos
             _db = db;
         }
 
+        public async Task<Transaction> Create(Transaction transaction)
+        {
+            await _db.Transactions.AddAsync(transaction);
+            await _db.SaveChangesAsync();
+
+            return transaction;
+        }
+
         public async Task<bool> Delete(Transaction transaction)
         {
-            
+
             _db.Transactions.Remove(transaction);
             await _db.SaveChangesAsync();
 
@@ -44,7 +47,7 @@ namespace Bank.Data.Repos
 
         public async Task<Transaction> Update(Transaction transaction)
         {
-            
+
             _db.Transactions.Update(transaction);
             await _db.SaveChangesAsync();
 

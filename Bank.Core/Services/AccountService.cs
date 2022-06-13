@@ -3,17 +3,12 @@ using Bank.Core.Interfaces;
 using Bank.Data.Interfaces;
 using Bank.Domain.DTOs;
 using Bank.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bank.Core.Services
 {
     public class AccountService : IAccountService
     {
-        
+
         private readonly IAccountRepo _repo;
         private readonly IMapper _mapper;
 
@@ -34,10 +29,10 @@ namespace Bank.Core.Services
                     Balance = accountDTO.Balance,
                     Frequency = accountDTO.Frequency
                 };
-                
+
                 var mapped = _mapper.Map<AccountDTO, Account>(acc);
                 var save = await _repo.Create(mapped);
-                
+
                 var map = _mapper.Map<AccountDTO>(save);
 
                 return map;
@@ -48,7 +43,7 @@ namespace Bank.Core.Services
                 throw new Exception("Failed to create account");
             }
         }
-        
+
         public async Task<bool> Delete(AccountDTO accountDTO)
         {
             try
@@ -78,13 +73,15 @@ namespace Bank.Core.Services
             }
         }
 
-        public async Task<AccountDTO> Update(AccountDTO accountDTO)
+        public async Task<AccountDTO> Update(AccountDTO accountDTO, decimal money)
         {
             try
             {
-                var acc = _mapper.Map<AccountDTO, Account>(accountDTO);
+                accountDTO.Balance += money;
 
-                var res = await _repo.Update(acc);
+                var mapped = _mapper.Map<AccountDTO, Account>(accountDTO);
+
+                var res = await _repo.Update(mapped);
 
                 return _mapper.Map<AccountDTO>(res);
             }
@@ -92,7 +89,7 @@ namespace Bank.Core.Services
             {
                 throw new Exception("Failed to update account");
             }
-            
+
         }
     }
 }

@@ -1,18 +1,16 @@
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using AutoMapper;
-using Microsoft.OpenApi.Models;
-using Bank.Domain.Models;
-using Bank.Data.Auth;
-using Bank.Data.Models;
-using Bank.Core.Services;
 using Bank.Core.Interfaces;
-using Bank.Domain.DTOs;
-using Bank.Data.Repos;
+using Bank.Core.Services;
+using Bank.Data.Auth;
 using Bank.Data.Interfaces;
+using Bank.Data.Models;
+using Bank.Data.Repos;
+using Bank.Domain.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 ConfigurationManager configuration = builder.Configuration;
@@ -67,9 +65,14 @@ builder.Services.AddTransient<ICustomerService, CustomerService>();
 builder.Services.AddTransient<IDispositionRepo, DispositionRepo>();
 builder.Services.AddTransient<IDispositionService, DispositionService>();
 
+builder.Services.AddTransient<IAccountTypeRepo, AccountTypeRepo>();
+builder.Services.AddTransient<IAccountTypeService, AccountTypeService>();
 
-//builder.Services.AddTransient<IAccountTypeRepo, AccountTypeRepo>();
-//builder.Services.AddTransient<IAccountTypeService, AccountTypeService>();
+builder.Services.AddTransient<ILoanRepo, LoanRepo>();
+builder.Services.AddTransient<ILoanService, LoanService>();
+
+builder.Services.AddTransient<ITransactionRepo, TransactionRepo>();
+builder.Services.AddTransient<ITransactionService, TransactionService>();
 
 //builder.Services.AddTransient<IBidRepo, BidRepo>();
 

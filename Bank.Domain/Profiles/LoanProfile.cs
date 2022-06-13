@@ -1,11 +1,6 @@
 ﻿using AutoMapper;
-using Bank.Domain.Models;
 using Bank.Domain.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Bank.Domain.Models;
 
 namespace Bank.Domain.Profiles
 {

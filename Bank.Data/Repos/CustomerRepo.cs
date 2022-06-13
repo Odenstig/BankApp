@@ -1,11 +1,6 @@
 ﻿using Bank.Data.Interfaces;
 using Bank.Data.Models;
 using Bank.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bank.Data.Repos
 {
@@ -28,12 +23,12 @@ namespace Bank.Data.Repos
 
         public async Task<bool> Delete(Customer customer)
         {
-            
+
             _db.Customers.Remove(customer);
             await _db.SaveChangesAsync();
 
             return true;
-            
+
         }
 
         public async Task<Customer> Get(int id)

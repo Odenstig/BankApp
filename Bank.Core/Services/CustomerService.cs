@@ -1,14 +1,8 @@
 ﻿using AutoMapper;
 using Bank.Core.Interfaces;
 using Bank.Data.Interfaces;
-using Bank.Data.Repos;
 using Bank.Domain.DTOs;
 using Bank.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bank.Core.Services
 {

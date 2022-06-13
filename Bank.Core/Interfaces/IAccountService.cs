@@ -1,9 +1,4 @@
 ﻿using Bank.Domain.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bank.Core.Interfaces
 {
@@ -11,7 +6,7 @@ namespace Bank.Core.Interfaces
     {
         Task<AccountDTO> Create(AccountDTO accountDTO);
         Task<AccountDTO> Get(int id);
-        Task<AccountDTO> Update(AccountDTO accountDTO);
+        Task<AccountDTO> Update(AccountDTO accountDTO, decimal money);
         Task<bool> Delete(AccountDTO accountDTO);
     }
 }
