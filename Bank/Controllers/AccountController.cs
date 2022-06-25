@@ -1,5 +1,7 @@
 ﻿using Bank.Core.Interfaces;
 using Bank.Domain.DTOs;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bank.Api.Controllers
@@ -19,6 +21,7 @@ namespace Bank.Api.Controllers
             _accTypeSvc = accTypeSvc;
         }
 
+        [Authorize(AuthenticationSchemes = "Identity.Application," + JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         [HttpPost]
         [Route("create-account")]
         public async Task<IActionResult> CreateAccount([FromBody] AccountDTO model)
@@ -39,6 +42,7 @@ namespace Bank.Api.Controllers
             }
         }
 
+        [Authorize(AuthenticationSchemes = "Identity.Application," + JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         [HttpPut]
         [Route("update-balance")]
         public async Task<IActionResult> UpdateBalance(AccountDTO model, decimal money)
@@ -58,6 +62,7 @@ namespace Bank.Api.Controllers
             }
         }
 
+        [Authorize(AuthenticationSchemes = "Identity.Application," + JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         [HttpGet("get-account/{id}")]
         public async Task<IActionResult> GetAccount(int id)
         {
@@ -76,6 +81,7 @@ namespace Bank.Api.Controllers
             }
         }
 
+        [Authorize(AuthenticationSchemes = "Identity.Application," + JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         [HttpPost]
         [Route("create-account-type")]
         public async Task<IActionResult> CreateAccountType([FromBody] AccountTypeDTO model)
@@ -96,6 +102,7 @@ namespace Bank.Api.Controllers
             }
         }
 
+        [Authorize(AuthenticationSchemes = "Identity.Application," + JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         [HttpGet("get-account-type/{id}")]
         public async Task<IActionResult> GetAccountType(int id)
         {
@@ -133,7 +140,7 @@ namespace Bank.Api.Controllers
             }
         }
 
-
+        [Authorize(AuthenticationSchemes = "Identity.Application," + JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         [HttpPost]
         [Route("create-disposition")]
         public async Task<IActionResult> CreateDisposition([FromBody] DispositionDTO model)
@@ -154,6 +161,7 @@ namespace Bank.Api.Controllers
             }
         }
 
+        [Authorize(AuthenticationSchemes = "Identity.Application," + JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         [HttpGet("get-disposition/{id}")]
         public async Task<IActionResult> GetDisposition(int id)
         {
@@ -172,6 +180,7 @@ namespace Bank.Api.Controllers
             }
         }
 
+        [Authorize(AuthenticationSchemes = "Identity.Application," + JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         [HttpGet("get-dispositions/{id}")]
         public async Task<IActionResult> GetDispositions(int id)
         {

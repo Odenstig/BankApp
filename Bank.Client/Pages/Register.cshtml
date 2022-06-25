@@ -1,0 +1,97 @@
+﻿@page
+@model Bank.Client.ViewModels.CustomerModel
+@{
+    
+}
+
+<form method="post"> 
+    <label asp-for="Gender">Male</label>
+    <input type="radio" asp-for="Gender" value="male" />
+    <span asp-validation-for="Gender"></span>
+
+    <label asp-for="Gender">Female</label>
+    <input type="radio" asp-for="Gender" value="female" />
+    <span asp-validation-for="Gender"></span>
+
+    <br />
+
+    <label asp-for="Givenname">Givenname</label>
+    <input type="text" asp-for="Givenname" />
+    <span asp-validation-for="Givenname"></span>
+
+    <br />
+
+    <label asp-for="Surname">Surname</label>
+    <input type="text" asp-for="Surname" />
+    <span asp-validation-for="Surname"></span>
+
+    <br />
+
+    <label asp-for="Streetaddress">Street Adress</label>
+    <input type="text" asp-for="Streetaddress" />
+    <span asp-validation-for="Streetaddress"></span>
+
+    <br />
+
+    <label asp-for="Zipcode">Zipcode</label>
+    <input type="text" asp-for="Zipcode" placeholder="123 45"/>
+    <span asp-validation-for="Zipcode"></span>
+
+    <br />
+
+    <label asp-for="City">City</label>
+    <input type="text" asp-for="City" />
+    <span asp-validation-for="City"></span>
+
+    <br />
+
+    <label asp-for="Country">Country</label>
+    <input type="text" asp-for="Country" />
+    <span asp-validation-for="Country"></span>
+
+    <br />
+
+    <label asp-for="CountryCode">Country Code</label>
+    <input type="text" asp-for="CountryCode" placeholder="SE" />
+    <span asp-validation-for="CountryCode"></span>
+
+    <br />
+
+    <label asp-for="Birthday">Birthday</label>
+    <input type="date" asp-for="Birthday" />
+    <span asp-validation-for="Birthday"></span>
+
+    <br />
+
+    <label asp-for="Telephonenumber">Telephonenumber</label>
+    <input type="text" asp-for="Telephonenumber" />
+    <span asp-validation-for="Telephonenumber"></span>
+
+    <br />
+
+    <label asp-for="Telephonecountrycode">Telephone Countrycode</label>
+    <input type="text" asp-for="Telephonecountrycode" placeholder="+46"/>
+    <span asp-validation-for="Telephonecountrycode"></span>
+
+    <br />
+
+    <label asp-for="Emailaddress">Emailadress</label>
+    <input type="email" asp-for="Emailaddress" />
+    <span asp-validation-for="Emailaddress"></span>
+
+    <br />
+
+    <label asp-for="Username">Username</label>
+    <input type="text" asp-for="Username" />
+    <span asp-validation-for="Username"></span>
+
+    <br />
+
+    <label asp-for="Password">Password</label>
+    <input type="password" asp-for="Password" />
+    <span asp-validation-for="Password"></span>
+
+    <br />
+
+    <button type="submit" asp-controller="User" asp-action="CreateCustomer">Register</button>
+</form>

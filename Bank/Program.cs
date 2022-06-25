@@ -74,12 +74,6 @@ builder.Services.AddTransient<ILoanService, LoanService>();
 builder.Services.AddTransient<ITransactionRepo, TransactionRepo>();
 builder.Services.AddTransient<ITransactionService, TransactionService>();
 
-//builder.Services.AddTransient<IBidRepo, BidRepo>();
-
-//EF
-//builder.Services.AddTransient<IAuctionRepo, AuctionRepo>();
-//builder.Services.AddTransient<IAuctionService, AuctionService>();
-
 //Bank DBContext
 builder.Services.AddDbContext<BankAppDataContext>(options =>
 {
@@ -114,6 +108,7 @@ builder.Services.AddAuthentication(options =>
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]))
         };
     });
+
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly, typeof(Account).Assembly);
 builder.Services.AddAutoMapper(typeof(Program).Assembly, typeof(Disposition).Assembly);

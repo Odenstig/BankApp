@@ -1,0 +1,21 @@
+﻿@page
+@model Bank.Client.ViewModels.LoginModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<form method="post"> 
+    <label asp-for="Username">Username *</label>
+    <input type="text" asp-for="Username" />
+    <span asp-validation-for="Username"></span>
+
+    <br />
+
+    <label asp-for="Password">Password *</label>
+    <input type="password" asp-for="Password" />
+    <span asp-validation-for="Password"></span>
+
+    <br />
+
+    <button type="submit" asp-controller="Home" asp-action="Login">Login</button>
+</form>

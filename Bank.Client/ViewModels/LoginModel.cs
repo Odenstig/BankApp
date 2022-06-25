@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Bank.Data.Auth
+namespace Bank.Client.ViewModels
 {
     public class LoginModel
     {

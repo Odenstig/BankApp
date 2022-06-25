@@ -1,0 +1,24 @@
+﻿@page
+@model Bank.Client.ViewModels.AccountTypeModel
+@{
+}
+
+<form method="post"> 
+    <label asp-for="TypeName">Name</label>
+    <input type="text" asp-for="TypeName" />
+    <span asp-validation-for="TypeName"></span>
+
+    <br />
+
+    <label asp-for="Description">Description</label>
+    <input type="password" asp-for="Description" />
+    <span asp-validation-for="Description"></span>
+
+    <br />
+
+    <label asp-for="Interest">Interest</label>
+    <input type="password" asp-for="Interest" />
+    <span asp-validation-for="Interest"></span>
+
+    <button type="submit" asp-controller="Admin" asp-action="CreateAccountType">Create</button>
+</form>
