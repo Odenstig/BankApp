@@ -16,6 +16,15 @@ namespace Bank.Client.Controllers
             _accountSvc = accountSvc;
         }
 
+        [Route("[action]")]
+        [HttpGet]
+        public async Task<IActionResult> CreateAccountType()
+        {
+
+            return View();
+        }
+
+        [Route("[action]")]
         [HttpPost]
         public async Task<IActionResult> CreateAccountType(AccountTypeModel model)
         {
@@ -28,7 +37,7 @@ namespace Bank.Client.Controllers
 
                 var a = await _accountSvc.CreateAccountType(model);
 
-                return View(a);
+                return View();
             }
             catch (Exception ex)
             {
@@ -36,7 +45,7 @@ namespace Bank.Client.Controllers
             }
         }
 
-        [Route("create-account")]
+        [Route("[action]")]
         [HttpGet]
         public async Task<IActionResult> CreateAccount()
         {
@@ -46,28 +55,33 @@ namespace Bank.Client.Controllers
 
 
             var jsonReturn = await b.Content.ReadAsStringAsync();
-            List<AccountTypeResponseModel> test = JsonConvert.DeserializeObject<List<AccountTypeResponseModel>>(jsonReturn);
-
-            ViewBag.Accounts = new SelectList(test, "AccountTypesId", "TypeName");
-
+            var test = JsonConvert.DeserializeObject<List<AccountTypeResponseModel>>(jsonReturn);
+            ViewBag.AccountTypes = test;
 
             return View();
         }
 
-        [Route("create-account")]
+        [Route("[action]")]
         [HttpPost]
         public async Task<IActionResult> CreateAccount(AccountDispositionModel model)
         {
             try
             {
-                if (!ModelState.IsValid)
+
+                if (ModelState.IsValid)
                 {
+                    var a = await _accountSvc.CreateAccount(model);
+
+                    return View();
+                }
+                else
+                {
+                    var errors = ModelState.Select(x => x.Value.Errors)
+                                           .Where(y => y.Count > 0)
+                                           .ToList();
+
                     throw new Exception("Account creation failed!");
                 }
-
-                var a = await _accountSvc.CreateAccount(model);
-
-                return View();
             }
             catch (Exception ex)
             {

@@ -102,7 +102,7 @@ namespace Bank.Api.Controllers
             }
         }
 
-        [Authorize(AuthenticationSchemes = "Identity.Application," + JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
+        [Authorize(AuthenticationSchemes = /*"Identity.Application," + */JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         [HttpGet("get-account-type/{id}")]
         public async Task<IActionResult> GetAccountType(int id)
         {

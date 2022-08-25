@@ -1,5 +1,4 @@
-﻿@page
-@model Bank.Client.ViewModels.AccountTypeModel
+﻿@model Bank.Client.ViewModels.AccountTypeModel
 @{
 }
 
@@ -11,13 +10,13 @@
     <br />
 
     <label asp-for="Description">Description</label>
-    <input type="password" asp-for="Description" />
+    <input type="text" asp-for="Description" />
     <span asp-validation-for="Description"></span>
 
     <br />
 
     <label asp-for="Interest">Interest</label>
-    <input type="password" asp-for="Interest" />
+    <input type="text" asp-for="Interest" />
     <span asp-validation-for="Interest"></span>
 
     <button type="submit" asp-controller="Admin" asp-action="CreateAccountType">Create</button>

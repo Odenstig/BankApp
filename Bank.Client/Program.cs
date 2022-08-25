@@ -23,7 +23,8 @@ app.UseMvc(routes =>
 {
     routes.MapRoute(
       name: "Default",
-      template: "{controller=Home}/{action=Login}"
+      template: "{controller}/{action}",
+      new { controller = "Home", action = "Index"}
     );
 });
 

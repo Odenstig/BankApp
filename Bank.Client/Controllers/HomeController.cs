@@ -18,18 +18,19 @@ namespace Bank.Client.Controllers
             _userSvc = userSvc;
         }
 
+        [Route("/")]
         public IActionResult Index()
         {
             return View();
         }
 
+        [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
 
         [HttpPost]
-        [Route("login")]
         public async Task<IActionResult> Login(LoginModel model)
         {
             try
@@ -42,7 +43,7 @@ namespace Bank.Client.Controllers
                 var a = await _userSvc.Login(model);
                 HttpContext.Session.SetString("token", a);
 
-                return View("../Index");
+                return View();
             }
             catch(Exception ex)
             {

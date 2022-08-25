@@ -109,6 +109,8 @@ builder.Services.AddAuthentication(options =>
         };
     });
 
+builder.Services.AddAuthorization();
+
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly, typeof(Account).Assembly);
 builder.Services.AddAutoMapper(typeof(Program).Assembly, typeof(Disposition).Assembly);

@@ -14,6 +14,14 @@ namespace Bank.Client.Controllers
             _userSvc = userSvc;
         }
 
+        [Route("[action]")]
+        [HttpGet]
+        public IActionResult CreateCustomer()
+        {
+            return View();
+        }
+
+        [Route("[action]")]
         [HttpPost]
         public async Task<IActionResult> CreateCustomer(CustomerModel model)
         {

@@ -38,7 +38,7 @@ namespace Bank.Client.Services
                     client.DefaultRequestHeaders.Add("Authorization", "Bearer " + b);
                 }
 
-                HttpResponseMessage response = await client.PostAsync(_createAccUrl, data);
+                HttpResponseMessage response = await client.PostAsync(_createAccTypeUrl, data);
                 if (!response.IsSuccessStatusCode)
                     return "Failed!";
 
@@ -55,13 +55,13 @@ namespace Bank.Client.Services
             try
             {
                 using HttpClient client = new();
-
+                DateTime dateTime = DateTime.Now;
                 var acc = new AccountModel()
                 {
                     AccountTypesId = model.AccountTypesId,
-                    Balance = model.Balance,
-                    Created = model.Created,
-                    Frequency = model.Frequency
+                    Balance = 0,
+                    Created = dateTime.Date,
+                    Frequency = "Monthly" //Hardcoded for testing purposes.
                 };
 
                 string json = JsonConvert.SerializeObject(acc);
@@ -74,7 +74,7 @@ namespace Bank.Client.Services
                     client.DefaultRequestHeaders.Add("Authorization", "Bearer " + b);
                 };
 
-                HttpResponseMessage response = await client.PostAsync(_createAccTypeUrl, data);
+                HttpResponseMessage response = await client.PostAsync(_createAccUrl, data);
                 if (!response.IsSuccessStatusCode)
                     return "Failed!";
 

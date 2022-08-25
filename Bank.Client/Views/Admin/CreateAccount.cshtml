@@ -1,0 +1,30 @@
+﻿@model Bank.Client.ViewModels.AccountDispositionModel
+
+@{
+
+}
+
+
+<form method="post"> 
+
+    <label asp-for="CustomerId">Enter Customer Id:</label>
+    <input type="text" asp-for="CustomerId"/>
+    <span asp-validation-for="CustomerId"></span>
+
+    <br />
+
+     <label asp-for="AccountTypesId">Choose an AccountType:</label>
+     <select asp-for="AccountTypesId">
+         @if(ViewBag.AccountTypes != null)
+         {
+             foreach (var item in ViewBag.AccountTypes)
+             {
+                 <option value="@item.AccountTypeId">@item.TypeName</option>
+             }  
+         }
+     </select>
+
+     <br />
+
+    <button type="submit" asp-controller="Admin" asp-action="CreateAccount">Create</button>
+</form>
