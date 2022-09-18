@@ -1,6 +1,6 @@
-﻿namespace Bank.Domain.DTOs
+﻿namespace Bank.Client.ViewModels
 {
-    public class TransactionDTO
+    public class TransactionModel
     {
         public int TransactionId { get; set; }
         public int AccountId { get; set; }
@@ -13,6 +13,5 @@
         public string? Symbol { get; set; }
         public string? Bank { get; set; }
         public string? Account { get; set; }
-
     }
 }

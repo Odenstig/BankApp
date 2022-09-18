@@ -14,12 +14,12 @@ namespace Bank.Data.Repos
             _db = db;
         }
 
-        public async Task<Transaction> Create(Transaction transaction)
+        public async Task<string> Create(Transaction transaction)
         {
             await _db.Transactions.AddAsync(transaction);
             await _db.SaveChangesAsync();
 
-            return transaction;
+            return "Successfull transaction.";
         }
 
         public async Task<bool> Delete(Transaction transaction)

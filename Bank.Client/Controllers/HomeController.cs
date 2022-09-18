@@ -50,5 +50,9 @@ namespace Bank.Client.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        //Logged in view?
+
+        //Transactions action
     }
 }

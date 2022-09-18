@@ -4,7 +4,7 @@ namespace Bank.Core.Interfaces
 {
     public interface ITransactionService
     {
-        Task<TransactionDTO> Create(TransactionDTO transactionDTO);
+        Task<string> Create(TransactionDTO transactionDTO);
         Task<List<TransactionDTO>> GetAllSpecific(int id);
         Task<TransactionDTO> Get(int id);
         Task<bool> Delete(TransactionDTO transactionDTO);

@@ -27,7 +27,7 @@ namespace Bank.Api.Controllers
                     return BadRequest("Failed to create transaction");
 
 
-                TransactionDTO transaction = await _transactionSvc.Create(model);
+                string transaction = await _transactionSvc.Create(model);
 
                 return Ok(transaction);
             }

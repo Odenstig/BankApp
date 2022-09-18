@@ -9,37 +9,63 @@ namespace Bank.Core.Services
     public class TransactionService : ITransactionService
     {
         private readonly ITransactionRepo _repo;
+        private readonly IAccountRepo _accRepo;
         private readonly IMapper _mapper;
 
-        public TransactionService(ITransactionRepo repo, IMapper mapper)
+        public TransactionService(ITransactionRepo repo, IMapper mapper, IAccountRepo accRepo)
         {
             _repo = repo;
             _mapper = mapper;
+            _accRepo = accRepo;
         }
 
-        public async Task<TransactionDTO> Create(TransactionDTO transactionDTO)
+        public async Task<string> Create(TransactionDTO transactionDTO)
         {
             try
             {
-                TransactionDTO transaction = new()
+                var sender = await _accRepo.Get(transactionDTO.AccountId);
+                var receiver = await _accRepo.Get(transactionDTO.RecieverAccountId);
+
+                TransactionDTO senderTransaction = new()
                 {
                     AccountId = transactionDTO.AccountId,
-                    Amount = transactionDTO.Amount,
-                    Balance = transactionDTO.Balance,
-                    Bank = transactionDTO.Bank,
-                    Date = transactionDTO.Date,
-                    Operation = transactionDTO.Operation,
-                    Symbol = transactionDTO.Symbol,
-                    Type = transactionDTO.Type,
-                    Account = transactionDTO.Account,
+                    Amount = transactionDTO.Amount * -1,
+                    Balance = sender.Balance - transactionDTO.Amount,
+                        Bank = "NB",
+                        Date = DateTime.Now,
+                        Operation = "Transfer",
+                        Symbol = null,
+                        Type = "Debit",
+                    Account = receiver.AccountId.ToString(),
                 };
 
-                var mapped = _mapper.Map<TransactionDTO, Transaction>(transaction);
-                var save = await _repo.Create(mapped);
+                TransactionDTO receiverTransaction = new()
+                {
+                    AccountId = transactionDTO.RecieverAccountId,
+                    Amount = transactionDTO.Amount,
+                    Balance = receiver.Balance + transactionDTO.Amount,
+                    Bank = "NB",
+                    Date = DateTime.Now,
+                    Operation = "Transfer",
+                    Symbol = transactionDTO.Symbol,
+                    Type = "Credit",
+                    Account = sender.AccountId.ToString(),
+                };
 
-                var map = _mapper.Map<TransactionDTO>(save);
+                var mappedSender = _mapper.Map<TransactionDTO, Transaction>(senderTransaction);
+                var mappedReceiver = _mapper.Map<TransactionDTO, Transaction>(receiverTransaction);
 
-                return map;
+                await _repo.Create(mappedSender);
+                await _repo.Create(mappedReceiver);
+
+                sender.Balance -= transactionDTO.Amount;
+                receiver.Balance += transactionDTO.Amount;
+
+                await _accRepo.Update(sender);
+                await _accRepo.Update(receiver);
+
+
+                return "Transaction Successful";
             }
             catch
             {

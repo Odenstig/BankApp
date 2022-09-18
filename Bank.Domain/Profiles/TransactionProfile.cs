@@ -11,6 +11,7 @@ namespace Bank.Domain.Profiles
             CreateMap<Transaction, TransactionDTO>()
                 .ForMember(dest => dest.TransactionId, opt => opt.MapFrom(scr => scr.TransactionId))
                 .ForMember(dest => dest.AccountId, opt => opt.MapFrom(scr => scr.AccountId))
+                .ForMember(dest => dest.RecieverAccountId, opt => opt.Ignore())
                 .ForMember(dest => dest.Date, opt => opt.MapFrom(scr => scr.Date))
                 .ForMember(dest => dest.Type, opt => opt.MapFrom(scr => scr.Type))
                 .ForMember(dest => dest.Operation, opt => opt.MapFrom(scr => scr.Operation))

@@ -88,5 +88,9 @@ namespace Bank.Client.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        //Add Loan
+
+        //Add
     }
 }

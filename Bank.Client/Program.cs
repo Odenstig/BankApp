@@ -5,12 +5,13 @@ using Bank.Client.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddMvc(options => options.EnableEndpointRouting = false);
-builder.Services.AddSession();
+builder.Services.AddSession(options => options.IdleTimeout = TimeSpan.FromMinutes(15));
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IAccountService, AccountService>();
+builder.Services.AddTransient<IBankService, BankService>();
 
 builder.Services.AddHttpClient();
 
