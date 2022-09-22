@@ -4,23 +4,27 @@
 }
 
 <form method="post">
-    @*<label asp-for="Gender">Male</label>
-    <input type="radio" asp-for="Gender" value="male" />
-    <span asp-validation-for="Gender"></span>*@
 
-    <label asp-for="AccountId">AccountId</label>
-    <input type="text" asp-for="AccountId" />
-    <span asp-validation-for="AccountId"></span>
+    <label asp-for="AccountId">AccountId :</label>
+    <select asp-for="AccountId">
+        @if (ViewBag.UAccounts != null)
+        {
+            foreach (var item in ViewBag.UAccounts)
+            {
+                <option value="@item.AccountId">@item.AccountId</option>
+            }
+        }
+    </select>
 
     <br />
 
-    <label asp-for="RecieverAccountId">ReceiverAccountId</label>
+    <label asp-for="RecieverAccountId">ReceiverAccountId :</label>
     <input type="text" asp-for="RecieverAccountId" />
     <span asp-validation-for="RecieverAccountId"></span>
 
     <br />
 
-    <label asp-for="Amount">AccountId</label>
+    <label asp-for="Amount">Amount :</label>
     <input type="number" asp-for="Amount" />
     <span asp-validation-for="Amount"></span>    
 

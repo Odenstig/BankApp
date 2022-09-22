@@ -1,11 +1,23 @@
 ﻿@{
 }
 
+@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor
+
+
 <div class="d-flex flex-column justify-content-center align-items-center">
     <div class="flex-column">
         <h1>Nacka Banken</h1>
     </div>
-    <div class="flex-column">
-        <a class="text-decoration-none" asp-controller="Home" asp-action="Login">login</a>
-    </div>
+    @if (@HttpContextAccessor.HttpContext.Session.GetString("token") == null){
+        <div class="flex-column">
+            <a class="text-decoration-none" asp-controller="Home" asp-action="Login">login</a>
+        </div>
+    }
+    else
+    {
+        <div class="flex-column">
+            <p>Welcome to the bank!</p>
+        </div>
+    }
 </div>

@@ -42,7 +42,7 @@ namespace Bank.Api.Controllers
             }
         }
 
-        [Authorize(AuthenticationSchemes = "Identity.Application," + JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
+        [Authorize(AuthenticationSchemes = "Identity.Application," + JwtBearerDefaults.AuthenticationScheme, Roles = "Admin, User")]
         [HttpPut]
         [Route("update-balance")]
         public async Task<IActionResult> UpdateBalance(AccountDTO model, decimal money)
@@ -62,7 +62,7 @@ namespace Bank.Api.Controllers
             }
         }
 
-        [Authorize(AuthenticationSchemes = "Identity.Application," + JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
+        [Authorize(AuthenticationSchemes = "Identity.Application," + JwtBearerDefaults.AuthenticationScheme, Roles = "Admin, User")]
         [HttpGet("get-account/{id}")]
         public async Task<IActionResult> GetAccount(int id)
         {
@@ -102,7 +102,7 @@ namespace Bank.Api.Controllers
             }
         }
 
-        [Authorize(AuthenticationSchemes = "Identity.Application," + JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
+        [Authorize(AuthenticationSchemes = "Identity.Application," + JwtBearerDefaults.AuthenticationScheme, Roles = "Admin, User")]
         [HttpGet("get-account-type/{id}")]
         public async Task<IActionResult> GetAccountType(int id)
         {
@@ -120,7 +120,7 @@ namespace Bank.Api.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
+        [Authorize(AuthenticationSchemes = "Identity.Application," + JwtBearerDefaults.AuthenticationScheme, Roles = "Admin, User")]
         [HttpGet("get-all-account-types")]
         public async Task<IActionResult> GetAllAccountTypes()
         {
@@ -161,7 +161,7 @@ namespace Bank.Api.Controllers
             }
         }
 
-        [Authorize(AuthenticationSchemes = "Identity.Application," + JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
+        [Authorize(AuthenticationSchemes = "Identity.Application," + JwtBearerDefaults.AuthenticationScheme, Roles = "Admin, User")]
         [HttpGet("get-disposition/{id}")]
         public async Task<IActionResult> GetDisposition(int id)
         {
@@ -180,7 +180,7 @@ namespace Bank.Api.Controllers
             }
         }
 
-        [Authorize(AuthenticationSchemes = "Identity.Application," + JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
+        [Authorize(AuthenticationSchemes = "Identity.Application," + JwtBearerDefaults.AuthenticationScheme, Roles = "User")]
         [HttpGet("get-dispositions/{id}")]
         public async Task<IActionResult> GetDispositions(int id)
         {

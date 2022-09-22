@@ -12,6 +12,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Bank.Core;
 
 namespace Bank.Api.Controllers
 {
@@ -61,6 +62,7 @@ namespace Bank.Api.Controllers
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
             var user = await _userManager.FindByNameAsync(model.Username);
+
             if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
             { 
 
@@ -81,7 +83,7 @@ namespace Bank.Api.Controllers
 
                 return Ok(new
                 {
-                    loggedInUser = user.UserName,
+                    loggedInUser = user.CustomerId.ToString(),
                     token = new JwtSecurityTokenHandler().WriteToken(token),
                     expiration = token.ValidTo,
                 });
@@ -144,11 +146,14 @@ namespace Bank.Api.Controllers
             if (!result.Succeeded)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
 
-            if (await _roleManager.RoleExistsAsync(UserRoles.Admin))
-                await _userManager.AddToRoleAsync(user, UserRoles.Admin);
+            if (!await _roleManager.RoleExistsAsync(UserRoles.Admin))
+                await _roleManager.CreateAsync(new IdentityRole(UserRoles.Admin));
+
+            if (!await _roleManager.RoleExistsAsync(UserRoles.User))
+                await _roleManager.CreateAsync(new IdentityRole(UserRoles.User));
 
             if (await _roleManager.RoleExistsAsync(UserRoles.Admin))
-                await _userManager.AddToRoleAsync(user, UserRoles.User);
+                await _userManager.AddToRoleAsync(user, UserRoles.Admin);
 
             return Ok(new Response { Status = "Success", Message = "Admin created successfully!" });
         }

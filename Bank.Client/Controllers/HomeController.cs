@@ -4,6 +4,7 @@ using Bank.Client.Services;
 using Newtonsoft.Json;
 using System.Text;
 using System.Net.Http;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace Bank.Client.Controllers
 {
@@ -41,9 +42,27 @@ namespace Bank.Client.Controllers
                 }
 
                 var a = await _userSvc.Login(model);
-                HttpContext.Session.SetString("token", a);
 
-                return View();
+                var handler = new JwtSecurityTokenHandler();
+
+                var secToken = handler.ReadJwtToken(a.Token);
+
+                foreach (var item in secToken.Claims)
+                {
+                    if (item.Value == "Admin")
+                    {
+                        HttpContext.Session.SetString("is_admin", "x");
+                    }
+                    else if(item.Value == "User")
+                    {
+                        HttpContext.Session.SetString("is_user", "x");
+                    }
+                }
+
+                HttpContext.Session.SetString("token", a.Token);
+                HttpContext.Session.SetString("user", a.LoggedInUser);
+
+                return RedirectToAction("Index");
             }
             catch(Exception ex)
             {

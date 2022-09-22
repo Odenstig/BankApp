@@ -7,7 +7,7 @@ namespace Bank.Client.Services
 {
     public interface IUserService
     {
-        Task<string> Login(LoginModel model);
+        Task<ResponseModel> Login(LoginModel model);
         Task<string> Create(CustomerModel model);
     }
     public class UserService : IUserService
@@ -21,7 +21,7 @@ namespace Bank.Client.Services
             _createCustUrl = "https://localhost:7242/api/User/register";
         }
 
-        public async Task<string> Login(LoginModel model)
+        public async Task<ResponseModel> Login(LoginModel model)
         {
             try
             {
@@ -37,8 +37,7 @@ namespace Bank.Client.Services
 
 
                 var modelTest = JsonConvert.DeserializeObject<ResponseModel>(jsonReturn);
-
-                return modelTest.Token;
+                return modelTest;
             }
             catch
             {

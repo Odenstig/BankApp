@@ -1,0 +1,23 @@
+﻿@model Bank.Client.ViewModels.AccountModel
+@{
+
+}
+
+
+
+@if (ViewBag.Accounts != null)
+{
+    foreach (var item in ViewBag.Accounts)
+    {
+        <div>
+            @foreach (var item2 in ViewBag.AccountTypes)
+            {
+                if (item2.AccountTypeId == item.AccountTypesId)
+                {
+                    <p>@item2.TypeName</p>
+                }
+            }
+            <a asp-controller="User" asp-action="AccountDetails" asp-route-id=@item.AccountId>@item.AccountId</a>
+        </div>
+    }
+}

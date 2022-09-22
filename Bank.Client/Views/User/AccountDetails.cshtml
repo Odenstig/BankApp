@@ -1,0 +1,59 @@
+﻿@model Bank.Client.ViewModels.AccountModel
+@{
+
+}
+
+<div class="row g-3" id="content">
+
+    <div class="col-md-12" id="input-container">
+
+        <p class="lead"> Account#: @ViewBag.AccountDetails.AccountId</p>
+        <p class="lead"> Balance: @ViewBag.AccountDetails.Balance</p>
+
+        <p class="lead"> Transactions:</p>
+
+    </div>
+
+    <div class="col-md-12">
+        <table class="table-responsive table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">AccountId</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Operation</th>
+                    <th scope="col">Bank</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Balance</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (var transaction in @ViewBag.Transactions)
+                    {
+                        <tr>
+                            <td>@transaction.Date.ToShortDateString()</td>
+                            <td>@transaction.AccountId</td>
+                            <td>@transaction.Type</td>
+                            <td>@transaction.Operation</td>
+                            <td>@transaction.Bank</td>
+                            <td>@transaction.Amount</td>
+                            <td>@transaction.Balance</td>
+                        </tr>
+                    }
+                    if (@ViewBag.Transactions.Count == 0)
+                    {
+                        <tr>
+                            <td>No transactions found.</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>

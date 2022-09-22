@@ -47,7 +47,7 @@ namespace Bank.Data.Repos
         public async Task<List<Disposition>> GetAllSpecific(int id)
         {
             var list = await _db.Dispositions
-                    .Where(d => d.AccountId == id)
+                    .Where(d => d.CustomerId == id)
                     .ToListAsync();
 
             return list;

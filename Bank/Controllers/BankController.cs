@@ -1,6 +1,9 @@
 ﻿using Bank.Core.Interfaces;
 using Bank.Domain.DTOs;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace Bank.Api.Controllers
 {
@@ -18,6 +21,7 @@ namespace Bank.Api.Controllers
         }
 
         [HttpPost]
+        [Authorize(AuthenticationSchemes = "Identity.Application," + JwtBearerDefaults.AuthenticationScheme, Roles = "User")]
         [Route("create-transaction")]
         public async Task<IActionResult> CreateTransaction([FromBody] TransactionDTO model)
         {
@@ -37,6 +41,7 @@ namespace Bank.Api.Controllers
             }
         }
 
+        [Authorize(AuthenticationSchemes = "Identity.Application," + JwtBearerDefaults.AuthenticationScheme, Roles = "User, Admin")]
         [HttpGet("get-transaction/{id}")]
         public async Task<IActionResult> GetTransaction(int id)
         {
@@ -55,6 +60,7 @@ namespace Bank.Api.Controllers
             }
         }
 
+        [Authorize(AuthenticationSchemes = "Identity.Application," + JwtBearerDefaults.AuthenticationScheme, Roles = "User, Admin")]
         [HttpGet("get-transactions/{id}")]
         public async Task<IActionResult> GetTransactions(int id)
         {
@@ -75,6 +81,7 @@ namespace Bank.Api.Controllers
 
         [HttpPost]
         [Route("create-loan")]
+        [Authorize(AuthenticationSchemes = "Identity.Application," + JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         public async Task<IActionResult> CreateLoan([FromBody] LoanDTO model)
         {
             try

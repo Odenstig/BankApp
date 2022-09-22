@@ -1,8 +1,7 @@
-﻿namespace Bank.Domain.DTOs
+﻿namespace Bank.Client.ViewModels
 {
-    public class LoanDTO
+    public class LoanModel
     {
-
         public int LoanId { get; set; }
         public int AccountId { get; set; }
         public DateTime? Date { get; set; }

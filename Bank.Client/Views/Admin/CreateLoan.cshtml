@@ -1,0 +1,29 @@
+﻿@model Bank.Client.ViewModels.LoanModel
+@{
+}
+
+<form method="post">
+    <label asp-for="AccountId">AccountId</label>
+    <input type="text" asp-for="AccountId" />
+    <span asp-validation-for="AccountId"></span>
+
+    <br />
+
+    <label asp-for="Duration">Duration</label>
+    <select asp-for="Duration" type="number">
+        <option value="12">12 Months</option>
+        <option value="24">24 Months</option>
+        <option value="36">36 Months</option>
+        <option value="48">48 Months</option>
+        <option value="60">60 Months</option>
+    </select>
+    <span asp-validation-for="Duration"></span>
+
+    <br />
+
+    <label asp-for="Amount">Amount</label>
+    <input type="text" asp-for="Amount" />
+    <span asp-validation-for="Amount"></span>
+
+    <button type="submit" asp-controller="Admin" asp-action="CreateLoan">Create</button>
+</form>
