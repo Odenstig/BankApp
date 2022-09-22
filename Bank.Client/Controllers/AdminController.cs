@@ -59,13 +59,17 @@ namespace Bank.Client.Controllers
             if (HttpContext.Session.GetString("is_admin") == null)
                 return StatusCode(403);
 
+            var token = HttpContext.Session.GetString("token");
+
             HttpClient client = new();
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
 
             var b = await client.GetAsync("https://localhost:7242/api/Account/get-all-account-types");
 
 
             var jsonReturn = await b.Content.ReadAsStringAsync();
             var test = JsonConvert.DeserializeObject<List<AccountTypeResponseModel>>(jsonReturn);
+
             ViewBag.AccountTypes = test;
 
             return View();
